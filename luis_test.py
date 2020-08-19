@@ -75,6 +75,15 @@ phraseList = {
     "phrases": "few,more,extra"
 }
 
+def get_grandchild_id(model, childName, grandChildName):
+    
+    theseChildren = next(filter((lambda child: child.name == childName), model.children))
+    theseGrandchildren = next(filter((lambda child: child.name == grandChildName), theseChildren.children))
+    
+    grandChildId = theseGrandchildren.id
+    
+    return grandChildId
+    
 # add phrase list to app
 phraseListId = client.features.add_phrase_list(app_id, versionId, phraseList)
 
@@ -96,14 +105,6 @@ phraseListFeatureDefinition = { "feature_name": "QuantityPhraselist", "model_nam
 client.features.add_entity_feature(app_id, versionId, toppingQuantityId, phraseListFeatureDefinition)
 
 
-def get_grandchild_id(model, childName, grandChildName):
-    
-    theseChildren = next(filter((lambda child: child.name == childName), model.children))
-    theseGrandchildren = next(filter((lambda child: child.name == grandChildName), theseChildren.children))
-    
-    grandChildId = theseGrandchildren.id
-    
-    return grandChildId
 
 # Define labeled example
 labeledExampleUtteranceWithMLEntity = {
