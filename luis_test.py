@@ -26,5 +26,5 @@ versionId = "0.1"
 intentName = "OrderPizzaIntent"
 
 client = LUISAuthoringClient(authoringEndpoint, CognitiveServicesCredentials(authoringKey))
-
+print(type(client))
 quickstart()
