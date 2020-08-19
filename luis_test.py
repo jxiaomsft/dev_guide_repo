@@ -21,7 +21,7 @@ predictionResourceName = "devguideluis-prediction"
 authoringEndpoint = f'https://{authoringResourceName}.cognitiveservices.azure.com/'
 predictionEndpoint = f'https://{predictionResourceName}.cognitiveservices.azure.com/'
 
-appName = "Contoso Pizza Company"
+appName = "Contoso Pizza Company v2"
 versionId = "0.1"
 intentName = "OrderPizzaIntent"
 
