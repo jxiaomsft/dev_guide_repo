@@ -14,7 +14,7 @@ def quickstart():
     ...
 # Creating and storing standard app variables
 
-authoringKey = '6b5970f522cc4c81bbba49cb1aa22940'
+authoringKey = 'bd3219f46da7407eacc54b2a917c7712'
 authoringResourceName = "devguideluis-authoring"
 predictionResourceName = "devguideluis-prediction"
 
@@ -83,7 +83,7 @@ def get_grandchild_id(model, childName, grandChildName):
     grandChildId = theseGrandchildren.id
     
     return grandChildId
-    
+
 # add phrase list to app
 phraseListId = client.features.add_phrase_list(app_id, versionId, phraseList)
 
