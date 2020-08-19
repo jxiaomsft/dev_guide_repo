@@ -27,3 +27,17 @@ def authenticate_client():
     return text_analytics_client
 
 client = authenticate_client()
+
+
+# Analyzing Sentiment:
+sentiment_url = endpoint + "/text/analytics/v3.0/sentiment"
+documents = {"documents": [
+    {"id": "1", "language": "en",
+        "text": "I really enjoy the new XBox One S. It has a clean look, it has 4K/HDR resolution and it is affordable."},
+    {"id": "2", "language": "es",
+        "text": "Este ha sido un dia terrible, llegué tarde al trabajo debido a un accidente automobilistico."}
+]}
+headers = {"Ocp-Apim-Subscription-Key": subscription_key}
+response = requests.post(sentiment_url, headers=headers, json=documents)
+sentiments = response.json()
+pprint(sentiments)
