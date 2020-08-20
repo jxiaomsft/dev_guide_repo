@@ -13,9 +13,10 @@ import requests
 from pprint import pprint
 
 import os
-
-subscription_key = "FILL IN SUBSCRIPTION KEY"
-endpoint = "FILL IN ENDPOINT"
+from dotenv import load_dotenv
+load_dotenv()
+subscription_key = os.getenv('SUBSCRIPTION_KEY')
+endpoint = os.getenv('ENDPOINT')
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
@@ -39,7 +40,6 @@ headers = {"Ocp-Apim-Subscription-Key": subscription_key}
 response = requests.post(language_api_url, headers=headers, json=documents)
 languages = response.json()
 pprint(languages)
-
 
 # Analyzing Sentiment:
 sentiment_url = endpoint + "/text/analytics/v3.0/sentiment"
