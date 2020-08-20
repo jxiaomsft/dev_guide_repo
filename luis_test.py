@@ -14,9 +14,9 @@ def quickstart():
     ...
 # Creating and storing standard app variables
 
-authoringKey = 'bd3219f46da7407eacc54b2a917c7712'
-authoringResourceName = "devguideluis-authoring"
-predictionResourceName = "devguideluis-prediction"
+authoringKey = 'FILL'
+authoringResourceName = "FILL"
+predictionResourceName = "FILL"
 
 authoringEndpoint = f'https://{authoringResourceName}.cognitiveservices.azure.com/'
 predictionEndpoint = f'https://{predictionResourceName}.cognitiveservices.azure.com/'
