@@ -14,8 +14,8 @@ from pprint import pprint
 
 import os
 
-subscription_key = "499d0d54bea14b519a53d0c2148f797f"
-endpoint = "https://devguidetextanalytics.cognitiveservices.azure.com/"
+subscription_key = "FILL IN SUBSCRIPTION KEY"
+endpoint = "FILL IN ENDPOINT"
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
