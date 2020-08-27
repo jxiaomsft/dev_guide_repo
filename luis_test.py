@@ -4,7 +4,9 @@ from msrest.authentication import CognitiveServicesCredentials
 from functools import reduce
 
 import json, time
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 
@@ -14,9 +16,16 @@ def quickstart():
     ...
 # Creating and storing standard app variables
 
+<<<<<<< HEAD
 authoringKey = 'bd3219f46da7407eacc54b2a917c7712'
 authoringResourceName = "devguideluis-authoring"
 predictionResourceName = "devguideluis-prediction"
+=======
+
+authoringKey = os.getenv('AUTHORINGKEY')
+authoringResourceName = os.getenv('AUTHORINGRESOURCENAME')
+predictionResourceName = os.getenv('PREDICTIONRESOURCENAME')
+>>>>>>> 4982b5509bf9e7fe0f660e96575413a9225f9135
 
 authoringEndpoint = f'https://{authoringResourceName}.cognitiveservices.azure.com/'
 predictionEndpoint = f'https://{predictionResourceName}.cognitiveservices.azure.com/'
