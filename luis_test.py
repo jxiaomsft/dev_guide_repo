@@ -14,14 +14,14 @@ def quickstart():
     ...
 # Creating and storing standard app variables
 
-authoringKey = 'FILL'
-authoringResourceName = "FILL"
-predictionResourceName = "FILL"
+authoringKey = 'bd3219f46da7407eacc54b2a917c7712'
+authoringResourceName = "devguideluis-authoring"
+predictionResourceName = "devguideluis-prediction"
 
 authoringEndpoint = f'https://{authoringResourceName}.cognitiveservices.azure.com/'
 predictionEndpoint = f'https://{predictionResourceName}.cognitiveservices.azure.com/'
 
-appName = "Contoso Pizza Company v2"
+appName = "Contoso Pizza Company v3"
 versionId = "0.1"
 intentName = "OrderPizzaIntent"
 
