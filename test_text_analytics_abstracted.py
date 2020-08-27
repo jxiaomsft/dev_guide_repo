@@ -5,20 +5,21 @@ import pandas as pd
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
-os.environ["subscription_key"] = "499d0d54bea14b519a53d0c2148f797f"
-os.environ["endpoint"] = "https://devguidetextanalytics.cognitiveservices.azure.com/"
-
+from dotenv import load_dotenv
+load_dotenv()
+subscription_key = os.getenv('SUBSCRIPTION_KEY')
+endpoint = os.getenv('ENDPOINT')
 
 def authenticate_client():
-    ta_credential = AzureKeyCredential(os.getenv("subscription_key"))
+    ta_credential = AzureKeyCredential(subscription_key)
     text_analytics_client = TextAnalyticsClient(
-            endpoint=os.getenv("endpoint"), credential=ta_credential)
+            endpoint= endpoint, credential=ta_credential)
     return text_analytics_client
 
 
 def sentiment_analysis_example(client, documents):
-    sentiment_url = os.getenv("endpoint") + "/text/analytics/v3.0/sentiment"
-    headers = {"Ocp-Apim-Subscription-Key": os.getenv("subscription_key")}
+    sentiment_url = endpoint + "/text/analytics/v3.0/sentiment"
+    headers = {"Ocp-Apim-Subscription-Key": subscription_key}
     response = requests.post(sentiment_url, headers=headers, json=documents)
     sentiments = response.json()
 
@@ -28,8 +29,8 @@ def sentiment_analysis_example(client, documents):
 
 
 def extract_key_phrases(client, documents):
-    keyphrase_url = os.getenv("endpoint") + "/text/analytics/v3.0/keyphrases"
-    headers = {"Ocp-Apim-Subscription-Key": os.getenv("subscription_key")}
+    keyphrase_url = endpoint + "/text/analytics/v3.0/keyphrases"
+    headers = {"Ocp-Apim-Subscription-Key": subscription_key}
     response = requests.post(keyphrase_url, headers=headers, json=documents)
     key_phrases = response.json()
 
@@ -38,8 +39,8 @@ def extract_key_phrases(client, documents):
     return key_phrases
 
 def identify_entities(client, documents):
-    entities_url = os.getenv("endpoint") + "/text/analytics/v3.0/entities/recognition/general"
-    headers = {"Ocp-Apim-Subscription-Key": os.getenv("subscription_key")}
+    entities_url = endpoint + "/text/analytics/v3.0/entities/recognition/general"
+    headers = {"Ocp-Apim-Subscription-Key": subscription_key}
     response = requests.post(entities_url, headers=headers, json=documents)
     entities = response.json()
     pprint(entities)
