@@ -12,7 +12,8 @@ load_dotenv()
 
 # Pull up data into data frame and convert structure to JSON.
 data = pd.read_csv("data-output.csv")
-short_data = data.head(5).loc[:, ["Text", "Theme"]]
+data = data.dropna()
+short_data = data.head(100).loc[:, ["Text", "Theme"]]
 # def text_to_JSON(row):
 #     theme = row["Theme"]
 #     text = row["Text"]
@@ -22,7 +23,7 @@ short_data = data.head(5).loc[:, ["Text", "Theme"]]
 #     }
 #     return 
 intents = []
-for index, row in short_data.iterrows():        
+for index, row in data.iterrows():        
     intents.append({"intentName":row["Theme"], 'text':row["Text"]})
 
 print(intents)
