@@ -48,7 +48,6 @@ print(authoringEndpoint)
 
 appName = "Tailwind Traders"
 versionId = "0.1"
-intentName = "Speed"
 
 client = LUISAuthoringClient(authoringEndpoint, CognitiveServicesCredentials(authoringKey))
 print(type(client))
@@ -67,7 +66,16 @@ app_id = client.apps.add(appDefinition)
 # get app id - necessary for all other changes
 print("Created LUIS app with ID {}".format(app_id))
 
-client.model.add_intent(app_id, versionId, intentName)
+client.model.add_intent(app_id, versionId, "speed")
+client.model.add_intent(app_id, versionId, "features")
+client.model.add_intent(app_id, versionId, "other")
+client.model.add_intent(app_id, versionId, "support")
+client.model.add_intent(app_id, versionId, "services")
+client.model.add_intent(app_id, versionId, "price")
+client.model.add_intent(app_id, versionId, "design")
+client.model.add_intent(app_id, versionId, "reliability")
+client.model.add_intent(app_id, versionId, "security")
+
 # # Add Prebuilt entity
 # client.model.add_prebuilt(app_id, versionId, prebuilt_extractor_names=["number"])
 
