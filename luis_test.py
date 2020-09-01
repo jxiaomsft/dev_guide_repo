@@ -2,11 +2,30 @@ from azure.cognitiveservices.language.luis.authoring import LUISAuthoringClient
 from azure.cognitiveservices.language.luis.runtime import LUISRuntimeClient
 from msrest.authentication import CognitiveServicesCredentials
 from functools import reduce
-
+import pandas as pd
+import numpy as np
 import json, time
 import os
 from dotenv import load_dotenv
 load_dotenv()
+
+
+# Pull up data into data frame and convert structure to JSON.
+data = pd.read_csv("data-output.csv")
+short_data = data.head(5)["Text", "Theme"]
+# def text_to_JSON(row):
+#     theme = row["Theme"]
+#     text = row["Text"]
+#     temp_json = {
+#         "text": text,
+#     "intentName": theme
+#     }
+#     return 
+intents = []
+for index, row in short_data.iterrows():        
+    intents.append({"intentName":row["Theme"], 'text':row["Text"]})
+
+print(intents)
 
 
 
