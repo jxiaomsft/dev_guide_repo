@@ -12,7 +12,7 @@ load_dotenv()
 
 # Pull up data into data frame and convert structure to JSON.
 data = pd.read_csv("data-output.csv")
-short_data = data.head(5)["Text", "Theme"]
+short_data = data.head(5).loc[:, ["Text", "Theme"]]
 # def text_to_JSON(row):
 #     theme = row["Theme"]
 #     text = row["Text"]
@@ -132,17 +132,19 @@ client.model.add_intent(app_id, versionId, intentName)
 
 
 # Define labeled example
-labeledExampleUtteranceWithMLEntity = {
-    "text": "This delivery time for my goose is really long, I am annoyed.",
-    "intentName": intentName
-}
+# labeledExampleUtteranceWithMLEntity = {
+#     "text": "This delivery time for my goose is really long, I am annoyed.",
+#     "intentName": intentName
+# }
 
-print("Labeled Example Utterance:", labeledExampleUtteranceWithMLEntity)
+# print("Labeled Example Utterance:", labeledExampleUtteranceWithMLEntity)
 
 # Add an example for the entity.
 # Enable nested children to allow using multiple models with the same name.
 # The quantity subentity and the phraselist could have the same exact name if this is set to True
-client.examples.add(app_id, versionId, labeledExampleUtteranceWithMLEntity, { "enableNestedChildren": True })
+# client.examples.add(app_id, versionId, labeledExampleUtteranceWithMLEntity, { "enableNestedChildren": True })
+for i in intents:
+    client.examples.add(app_id, versionId, i)
 # Train the app
 client.train.train_version(app_id, versionId)
 waiting = True
