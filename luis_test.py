@@ -10,11 +10,11 @@ load_dotenv()
 
 
 
-def quickstart(): 
+# def quickstart(): 
 
-    # add calls here, remember to indent properly
-    ...
-# Creating and storing standard app variables
+#     # add calls here, remember to indent properly
+#     ...
+# # Creating and storing standard app variables
 
 authoringKey = os.getenv('AUTHORINGKEY')
 authoringResourceName = os.getenv('AUTHORINGRESOURCENAME')
@@ -27,9 +27,9 @@ predictionEndpoint = 'https://' + predictionResourceName + '.cognitiveservices.a
 
 print(authoringEndpoint)
 
-appName = "Contoso Pizza Company v3"
+appName = "Tailwind Traders"
 versionId = "0.1"
-intentName = "OrderPizzaIntent"
+intentName = "Speed"
 
 client = LUISAuthoringClient(authoringEndpoint, CognitiveServicesCredentials(authoringKey))
 print(type(client))
@@ -49,119 +49,73 @@ app_id = client.apps.add(appDefinition)
 print("Created LUIS app with ID {}".format(app_id))
 
 client.model.add_intent(app_id, versionId, intentName)
-# Add Prebuilt entity
-client.model.add_prebuilt(app_id, versionId, prebuilt_extractor_names=["number"])
+# # Add Prebuilt entity
+# client.model.add_prebuilt(app_id, versionId, prebuilt_extractor_names=["number"])
 
-# define machine-learned entity
-mlEntityDefinition = [
-{
-    "name": "Pizza",
-    "children": [
-        { "name": "Quantity" },
-        { "name": "Type" },
-        { "name": "Size" }
-    ]
-},
-{
-    "name": "Toppings",
-    "children": [
-        { "name": "Type" },
-        { "name": "Quantity" }
-    ]
-}]
+# # define machine-learned entity
+# mlEntityDefinition = [
+# {
+#     "name": "Pizza",
+#     "children": [
+#         { "name": "Quantity" },
+#         { "name": "Type" },
+#         { "name": "Size" }
+#     ]
+# },
+# {
+#     "name": "Toppings",
+#     "children": [
+#         { "name": "Type" },
+#         { "name": "Quantity" }
+#     ]
+# }]
 
-# add entity to app
-modelId = client.model.add_entity(app_id, versionId, name="Pizza order", children=mlEntityDefinition)
+# # add entity to app
+# modelId = client.model.add_entity(app_id, versionId, name="Pizza order", children=mlEntityDefinition)
 
-# define phraselist - add phrases as significant vocabulary to app
-phraseList = {
-    "enabledForAllModels": False,
-    "isExchangeable": True,
-    "name": "QuantityPhraselist",
-    "phrases": "few,more,extra"
-}
+# # define phraselist - add phrases as significant vocabulary to app
+# phraseList = {
+#     "enabledForAllModels": False,
+#     "isExchangeable": True,
+#     "name": "QuantityPhraselist",
+#     "phrases": "few,more,extra"
+# }
 
-def get_grandchild_id(model, childName, grandChildName):
+# def get_grandchild_id(model, childName, grandChildName):
     
-    theseChildren = next(filter((lambda child: child.name == childName), model.children))
-    theseGrandchildren = next(filter((lambda child: child.name == grandChildName), theseChildren.children))
+#     theseChildren = next(filter((lambda child: child.name == childName), model.children))
+#     theseGrandchildren = next(filter((lambda child: child.name == grandChildName), theseChildren.children))
     
-    grandChildId = theseGrandchildren.id
+#     grandChildId = theseGrandchildren.id
     
-    return grandChildId
+#     return grandChildId
 
-# add phrase list to app
-phraseListId = client.features.add_phrase_list(app_id, versionId, phraseList)
+# # add phrase list to app
+# phraseListId = client.features.add_phrase_list(app_id, versionId, phraseList)
 
-# Get entity and subentities
-modelObject = client.model.get_entity(app_id, versionId, modelId)
-toppingQuantityId = get_grandchild_id(modelObject, "Toppings", "Quantity")
-pizzaQuantityId = get_grandchild_id(modelObject, "Pizza", "Quantity")
+# # Get entity and subentities
+# modelObject = client.model.get_entity(app_id, versionId, modelId)
+# toppingQuantityId = get_grandchild_id(modelObject, "Toppings", "Quantity")
+# pizzaQuantityId = get_grandchild_id(modelObject, "Pizza", "Quantity")
 
-# add model as feature to subentity model
-prebuiltFeatureRequiredDefinition = { "model_name": "number", "is_required": True }
-client.features.add_entity_feature(app_id, versionId, pizzaQuantityId, prebuiltFeatureRequiredDefinition)
+# # add model as feature to subentity model
+# prebuiltFeatureRequiredDefinition = { "model_name": "number", "is_required": True }
+# client.features.add_entity_feature(app_id, versionId, pizzaQuantityId, prebuiltFeatureRequiredDefinition)
 
-# add model as feature to subentity model
-prebuiltFeatureNotRequiredDefinition = { "model_name": "number" }
-client.features.add_entity_feature(app_id, versionId, toppingQuantityId, prebuiltFeatureNotRequiredDefinition)
+# # add model as feature to subentity model
+# prebuiltFeatureNotRequiredDefinition = { "model_name": "number" }
+# client.features.add_entity_feature(app_id, versionId, toppingQuantityId, prebuiltFeatureNotRequiredDefinition)
 
-# add phrase list as feature to subentity model
-phraseListFeatureDefinition = { "feature_name": "QuantityPhraselist", "model_name": None }
-client.features.add_entity_feature(app_id, versionId, toppingQuantityId, phraseListFeatureDefinition)
+# # add phrase list as feature to subentity model
+# phraseListFeatureDefinition = { "feature_name": "QuantityPhraselist", "model_name": None }
+# client.features.add_entity_feature(app_id, versionId, toppingQuantityId, phraseListFeatureDefinition)
 
 
 
 # Define labeled example
 labeledExampleUtteranceWithMLEntity = {
-    "text": "I want two small seafood pizzas with extra cheese.",
-    "intentName": intentName,
-    "entityLabels": [
-        {
-            "startCharIndex": 7,
-            "endCharIndex": 48,
-            "entityName": "Pizza order",
-            "children": [
-                {
-                    "startCharIndex": 7,
-                    "endCharIndex": 30,
-                    "entityName": "Pizza",
-                    "children": [
-                        {
-                            "startCharIndex": 7,
-                            "endCharIndex": 9,
-                            "entityName": "Quantity"
-                        },
-                        {
-                            "startCharIndex": 11,
-                            "endCharIndex": 15,
-                            "entityName": "Size"
-                        },
-                        {
-                            "startCharIndex": 17,
-                            "endCharIndex": 23,
-                            "entityName": "Type"
-                        }]
-                },
-                {
-                    "startCharIndex": 37,
-                    "endCharIndex": 48,
-                    "entityName": "Toppings",
-                    "children": [
-                        {
-                            "startCharIndex": 37,
-                            "endCharIndex": 41,
-                            "entityName": "Quantity"
-                        },
-                        {
-                            "startCharIndex": 43,
-                            "endCharIndex": 48,
-                            "entityName": "Type"
-                        }]
-                }
-            ]
-        }
-    ]
+    "text": "This delivery time for my goose is really long, I am annoyed.",
+    "intentName": intentName
 }
 
 print("Labeled Example Utterance:", labeledExampleUtteranceWithMLEntity)
@@ -202,4 +156,4 @@ print("Intents: ")
 for intent in predictionResponse.prediction.intents:
     print("\t{}".format (json.dumps (intent)))
 print("Entities: {}".format (predictionResponse.prediction.entities))
-quickstart()
+# quickstart()
