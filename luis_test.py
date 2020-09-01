@@ -47,7 +47,7 @@ predictionEndpoint = 'https://' + predictionResourceName + '.cognitiveservices.a
 print(authoringEndpoint)
 
 appName = "Tailwind Traders"
-versionId = "0.1"
+versionId = "0.2"
 intentName = "Speed"
 
 client = LUISAuthoringClient(authoringEndpoint, CognitiveServicesCredentials(authoringKey))
